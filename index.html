@@ -7,358 +7,63 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --bg: #F7F5F0;
-    --surface: #FFFFFF;
-    --surface2: #F0EDE6;
-    --border: #E2DDD5;
-    --text: #1A1714;
-    --text2: #7A7570;
-    --text3: #B0ABA5;
-    --accent: #1A1714;
-    --accent-light: #F0EDE6;
-    --red: #C84B2F;
-    --green: #2A7A4F;
-  }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-  }
-
-  header {
-    background: var(--accent);
-    color: #fff;
-    padding: 0 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 56px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
-  .logo {
-    font-family: 'DM Serif Display', serif;
-    font-size: 20px;
-    letter-spacing: -0.3px;
-    color: #fff;
-  }
-
-  .logo span {
-    color: #C8B89A;
-  }
-
-  .header-badge {
-    font-size: 11px;
-    background: rgba(255,255,255,0.12);
-    padding: 3px 10px;
-    border-radius: 20px;
-    letter-spacing: 0.5px;
-  }
-
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 2rem 1.5rem;
-  }
-
-  .top-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-  }
-
-  @media (max-width: 700px) {
-    .top-section { grid-template-columns: 1fr; }
-  }
-
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.25rem;
-  }
-
-  .card-label {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    color: var(--text2);
-    margin-bottom: 10px;
-  }
-
-  .key-row {
-    display: flex;
-    gap: 8px;
-  }
-
-  input[type="password"],
-  input[type="text"],
-  textarea,
-  select {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    color: var(--text);
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 8px 12px;
-    outline: none;
-    transition: border-color 0.15s;
-    width: 100%;
-  }
-
-  input:focus, textarea:focus, select:focus {
-    border-color: var(--accent);
-  }
-
-  textarea {
-    height: 120px;
-    resize: vertical;
-    line-height: 1.6;
-  }
-
-  .key-status {
-    font-size: 12px;
-    margin-top: 7px;
-    min-height: 16px;
-  }
-
-  .status-ok { color: var(--green); }
-  .status-err { color: var(--red); }
-
-  button {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    border-radius: 8px;
-    border: none;
-    transition: all 0.15s;
-    padding: 8px 16px;
-    white-space: nowrap;
-  }
-
-  .btn-save {
-    background: var(--accent);
-    color: #fff;
-  }
-
-  .btn-save:hover { background: #333; }
-
-  .search-bar {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 1.5rem;
-    align-items: stretch;
-  }
-
-  .search-bar textarea {
-    flex: 1;
-    height: 54px;
-    resize: none;
-  }
-
-  .btn-search {
-    background: var(--red);
-    color: #fff;
-    padding: 0 28px;
-    font-size: 14px;
-    border-radius: 10px;
-    height: 54px;
-  }
-
+  :root { --bg: #F7F5F0; --surface: #FFFFFF; --surface2: #F0EDE6; --border: #E2DDD5; --text: #1A1714; --text2: #7A7570; --text3: #B0ABA5; --accent: #1A1714; --red: #C84B2F; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  header { background: var(--accent); color: #fff; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px; position: sticky; top: 0; z-index: 100; }
+  .logo { font-family: 'DM Serif Display', serif; font-size: 20px; letter-spacing: -0.3px; color: #fff; }
+  .logo span { color: #C8B89A; }
+  .header-badge { font-size: 11px; background: rgba(255,255,255,0.12); padding: 3px 10px; border-radius: 20px; letter-spacing: 0.5px; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+  .info-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem; }
+  .card-label { font-size: 11px; font-weight: 500; letter-spacing: 0.8px; text-transform: uppercase; color: var(--text2); margin-bottom: 8px; }
+  input, textarea, select { font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text); background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; outline: none; transition: border-color 0.15s; width: 100%; }
+  input:focus, textarea:focus, select:focus { border-color: var(--accent); }
+  textarea { height: 54px; resize: none; line-height: 1.6; }
+  button { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; border-radius: 8px; border: none; transition: all 0.15s; padding: 8px 16px; }
+  .section-title { font-family: 'DM Serif Display', serif; font-size: 22px; margin-bottom: 1rem; letter-spacing: -0.3px; }
+  .search-bar { display: flex; gap: 10px; margin-bottom: 1.25rem; align-items: stretch; }
+  .search-bar textarea { flex: 1; }
+  .btn-search { background: var(--red); color: #fff; padding: 0 28px; font-size: 14px; border-radius: 10px; height: 54px; white-space: nowrap; }
   .btn-search:hover { background: #a83b22; }
   .btn-search:disabled { background: var(--text3); cursor: not-allowed; }
-
-  .controls-row {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 1.25rem;
-    flex-wrap: wrap;
-  }
-
-  .controls-row label {
-    font-size: 12px;
-    color: var(--text2);
-    font-weight: 500;
-  }
-
-  select {
-    width: auto;
-    padding: 6px 10px;
-    font-size: 12px;
-  }
-
-  .keywords-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 1rem;
-    min-height: 26px;
-  }
-
-  .keyword-tag {
-    font-size: 12px;
-    background: var(--accent);
-    color: #fff;
-    padding: 3px 12px;
-    border-radius: 20px;
-    font-weight: 400;
-  }
-
-  .status-bar {
-    font-size: 13px;
-    color: var(--text2);
-    margin-bottom: 1.25rem;
-    min-height: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .spinner {
-    width: 14px;
-    height: 14px;
-    border: 2px solid var(--border);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-    display: none;
-  }
-
+  .controls-row { display: flex; gap: 10px; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .controls-row label { font-size: 12px; color: var(--text2); font-weight: 500; }
+  select { width: auto; padding: 6px 10px; font-size: 12px; }
+  .keywords-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; min-height: 26px; }
+  .keyword-tag { font-size: 12px; background: var(--accent); color: #fff; padding: 3px 12px; border-radius: 20px; }
+  .status-bar { font-size: 13px; color: var(--text2); margin-bottom: 1.25rem; min-height: 20px; display: flex; align-items: center; gap: 8px; }
+  .spinner { width: 14px; height: 14px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
   .spinner.active { display: inline-block; }
-
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  .image-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-  }
-
-  @media (max-width: 600px) {
-    .image-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  .image-card {
-    position: relative;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    background: var(--surface2);
-    aspect-ratio: 16/10;
-    cursor: pointer;
-  }
-
-  .image-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.3s ease;
-  }
-
+  .image-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media (max-width: 600px) { .image-grid { grid-template-columns: repeat(2, 1fr); } }
+  .image-card { position: relative; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); background: var(--surface2); aspect-ratio: 16/10; cursor: pointer; }
+  .image-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
   .image-card:hover img { transform: scale(1.04); }
-
-  .image-overlay {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    padding: 8px 10px;
-    background: linear-gradient(transparent, rgba(0,0,0,0.6));
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-
+  .image-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 8px 10px; background: linear-gradient(transparent, rgba(0,0,0,0.6)); display: flex; justify-content: space-between; align-items: flex-end; opacity: 0; transition: opacity 0.2s; }
   .image-card:hover .image-overlay { opacity: 1; }
-
-  .photographer {
-    font-size: 11px;
-    color: rgba(255,255,255,0.9);
-  }
-
-  .btn-dl {
-    font-size: 11px;
-    background: rgba(255,255,255,0.9);
-    color: #1A1714;
-    padding: 4px 10px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500;
-  }
-
-  .empty-state {
-    grid-column: 1/-1;
-    text-align: center;
-    padding: 4rem 2rem;
-    color: var(--text3);
-  }
-
-  .empty-state .icon {
-    font-size: 40px;
-    margin-bottom: 1rem;
-    opacity: 0.4;
-  }
-
-  .empty-state p {
-    font-size: 14px;
-  }
-
-  .section-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 22px;
-    color: var(--text);
-    margin-bottom: 1rem;
-    letter-spacing: -0.3px;
-  }
+  .photographer { font-size: 11px; color: rgba(255,255,255,0.9); }
+  .btn-dl { font-size: 11px; background: rgba(255,255,255,0.9); color: #1A1714; padding: 4px 10px; border-radius: 6px; text-decoration: none; font-family: 'DM Sans', sans-serif; font-weight: 500; }
+  .empty-state { grid-column: 1/-1; text-align: center; padding: 4rem 2rem; color: var(--text3); }
+  .empty-state .icon { font-size: 40px; margin-bottom: 1rem; opacity: 0.4; }
+  .empty-state p { font-size: 14px; }
 </style>
 </head>
 <body>
-
 <header>
   <div class="logo">NE Times <span>Image Finder</span></div>
-  <div class="header-badge">Powered by Unsplash + Claude AI</div>
+  <div class="header-badge">Powered by Unsplash + n8n</div>
 </header>
-
 <div class="container">
-
-  <div class="top-section">
-    <div class="card">
-      <div class="card-label">Unsplash API Key</div>
-      <div class="key-row">
-        <input type="password" id="apiKey" placeholder="Access Key 붙여넣기" />
-        <button class="btn-save" onclick="saveKey()">저장</button>
-      </div>
-      <div class="key-status" id="keyStatus"></div>
-    </div>
-
-    <div class="card">
-      <div class="card-label">사용 안내</div>
-      <p style="font-size:13px; color:var(--text2); line-height:1.7;">
-        기사 제목 또는 본문을 입력하면 AI가 핵심 키워드를 자동 추출하고 Unsplash에서 관련 이미지를 찾아드립니다. 이미지에 마우스를 올리면 원본 다운로드 링크가 나타납니다.
-      </p>
-    </div>
+  <div class="info-card">
+    <div class="card-label">사용 안내</div>
+    <p style="font-size:13px; color:var(--text2); line-height:1.7;">기사 제목 또는 본문을 입력하면 핵심 키워드를 자동 추출하고 Unsplash에서 관련 이미지를 찾아드립니다. 이미지에 마우스를 올리면 원본 링크가 나타납니다.</p>
   </div>
-
   <p class="section-title">기사 입력</p>
-
   <div class="search-bar">
     <textarea id="articleText" placeholder="기사 제목이나 본문을 여기에 붙여넣으세요..."></textarea>
     <button class="btn-search" id="searchBtn" onclick="searchImages()">검색</button>
   </div>
-
   <div class="controls-row">
     <label>이미지 수:</label>
     <select id="imageCount">
@@ -374,80 +79,35 @@
       <option value="portrait">세로형</option>
     </select>
   </div>
-
   <div class="keywords-row" id="keywords"></div>
-
   <div class="status-bar">
     <div class="spinner" id="spinner"></div>
     <span id="statusText"></span>
   </div>
-
   <div class="image-grid" id="results">
     <div class="empty-state">
       <div class="icon">🖼</div>
       <p>기사를 입력하고 검색 버튼을 눌러주세요</p>
     </div>
   </div>
-
 </div>
-
 <script>
-let savedKey = '';
-
-function saveKey() {
-  const k = document.getElementById('apiKey').value.trim();
-  if (!k) { setKeyStatus('Access Key를 입력해주세요.', false); return; }
-  savedKey = k;
-  document.getElementById('apiKey').value = '●'.repeat(16);
-  setKeyStatus('저장 완료! 이제 기사를 입력하세요.', true);
-}
-
-function setKeyStatus(msg, ok) {
-  const el = document.getElementById('keyStatus');
-  el.textContent = msg;
-  el.className = 'key-status ' + (ok ? 'status-ok' : 'status-err');
-}
-
 function setStatus(msg, loading = false) {
   document.getElementById('statusText').textContent = msg;
   document.getElementById('spinner').className = 'spinner' + (loading ? ' active' : '');
 }
 
 async function extractKeywords(text) {
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
+  const res = await fetch('https://n8n.neungyule.com/webhook/image-finder', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 200,
-      messages: [{
-        role: 'user',
-        content: `다음 기사에서 Unsplash 이미지 검색에 최적화된 영어 키워드 3개를 추출해줘. 구체적이고 시각적인 명사 위주로.
-반드시 JSON 배열만 반환. 예: ["students learning","classroom technology","education future"]
-기사: ${text.slice(0, 600)}`
-      }]
-    })
+    body: JSON.stringify({ article: text.slice(0, 500) })
   });
   const data = await res.json();
-  const raw = data.content?.[0]?.text || '[]';
-  return JSON.parse(raw.replace(/```json|```/g, '').trim());
-}
-
-async function fetchImages(query, count, orientation) {
-  const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&per_page=${count}&orientation=${orientation}`;
-  const res = await fetch(url, { headers: { Authorization: `Client-ID ${savedKey}` } });
-  if (!res.ok) throw new Error('API 오류: ' + res.status);
-  const data = await res.json();
-  return (data.results || []).map(i => ({ ...i, _keyword: query }));
-}
-
-async function triggerDownload(id) {
-  if (!savedKey) return;
-  fetch(`https://api.unsplash.com/photos/${id}/download`, { headers: { Authorization: `Client-ID ${savedKey}` } });
+  return data.keywords || [];
 }
 
 async function searchImages() {
-  if (!savedKey) { setStatus('Access Key를 먼저 저장해주세요.'); return; }
   const text = document.getElementById('articleText').value.trim();
   if (!text) { setStatus('기사 내용을 입력해주세요.'); return; }
 
@@ -475,23 +135,24 @@ async function searchImages() {
 
   const count = parseInt(document.getElementById('imageCount').value);
   const orientation = document.getElementById('orientation').value;
-  const perKw = Math.ceil(count / keywords.length);
   setStatus('Unsplash에서 이미지 검색 중...', true);
 
   let all = [];
-  for (const kw of keywords) {
-    try {
-      const imgs = await fetchImages(kw, perKw, orientation);
-      all = all.concat(imgs);
-    } catch(e) { console.error(e); }
-  }
+  try {
+    const res = await fetch('/.netlify/functions/search', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ keywords, count, orientation })
+    });
+    const data = await res.json();
+    all = data.images || [];
+  } catch(e) { console.error(e); }
 
-  all = all.slice(0, count);
   const grid = document.getElementById('results');
   grid.innerHTML = '';
 
   if (all.length === 0) {
-    grid.innerHTML = '<div class="empty-state"><div class="icon">🔍</div><p>이미지를 찾지 못했어요. Access Key를 확인해주세요.</p></div>';
+    grid.innerHTML = '<div class="empty-state"><div class="icon">🔍</div><p>이미지를 찾지 못했어요. 잠시 후 다시 시도해주세요.</p></div>';
     setStatus('');
     btn.disabled = false; btn.textContent = '검색';
     return;
@@ -504,7 +165,7 @@ async function searchImages() {
       <img src="${img.urls.small}" alt="${img.alt_description || ''}" loading="lazy" />
       <div class="image-overlay">
         <span class="photographer">${img.user.name}</span>
-        <a class="btn-dl" href="${img.links.html}?utm_source=ne_times_image_finder&utm_medium=referral" target="_blank" onclick="triggerDownload('${img.id}')">원본 보기</a>
+        <a class="btn-dl" href="${img.links.html}?utm_source=ne_times_image_finder&utm_medium=referral" target="_blank">원본 보기</a>
       </div>
     `;
     grid.appendChild(card);
