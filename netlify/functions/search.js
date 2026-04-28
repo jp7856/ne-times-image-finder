@@ -1,3 +1,15 @@
+const https = require('https');
+
+function httpsGet(url, headers) {
+  return new Promise((resolve, reject) => {
+    https.get(url, { headers }, (res) => {
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => resolve(JSON.parse(data)));
+    }).on('error', reject);
+  });
+}
+
 exports.handler = async function(event) {
   if (event.httpMethod === 'OPTIONS') {
     return {
@@ -19,10 +31,7 @@ exports.handler = async function(event) {
 
     for (const kw of keywords) {
       const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(kw)}&per_page=${perKw}&orientation=${orientation}`;
-      const res = await fetch(url, {
-        headers: { Authorization: `Client-ID ${UNSPLASH_KEY}` }
-      });
-      const data = await res.json();
+      const data = await httpsGet(url, { Authorization: `Client-ID ${UNSPLASH_KEY}` });
       (data.results || []).forEach(img => results.push(img));
     }
 
