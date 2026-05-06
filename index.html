@@ -52,7 +52,7 @@
 <body>
 <header>
   <div class="logo">NE Times <span>Image Finder</span></div>
-  <div class="header-badge">Powered by Unsplash + n8n</div>
+  <div class="header-badge">Powered by Unsplash</div>
 </header>
 <div class="container">
   <div class="info-card">
@@ -92,22 +92,58 @@
   </div>
 </div>
 <script>
+// ⚠️ 여기에 Unsplash API 키를 입력하세요
+const UNSPLASH_KEY = 'VLRkU7wWplDXzMjkBFFqvhVrR_orC10qFcHOApNkrTc';
+
 function setStatus(msg, loading = false) {
   document.getElementById('statusText').textContent = msg;
   document.getElementById('spinner').className = 'spinner' + (loading ? ' active' : '');
 }
 
+// 기사에서 키워드 추출 (n8n 없이 로컬에서 처리)
 async function extractKeywords(text) {
-  const res = await fetch('https://n8n.neungyule.com/webhook/image-finder', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ article: text.slice(0, 500) })
-  });
-  const data = await res.json();
-  return data.keywords || [];
+  // 1차 시도: n8n webhook 사용
+  try {
+    const res = await fetch('https://n8n.neungyule.com/webhook/image-finder', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ article: text.slice(0, 500) })
+    });
+    const data = await res.json();
+    if (data.keywords && data.keywords.length > 0) return data.keywords;
+  } catch(e) {
+    console.log('n8n 연결 실패, 로컬 추출로 전환');
+  }
+
+  // 2차 fallback: 로컬 키워드 추출
+  const stopWords = ['the','a','an','is','are','was','were','be','been','being','have','has','had',
+    'do','does','did','will','would','could','should','may','might','shall','can',
+    'of','in','on','at','to','for','with','by','from','about','as','into','through',
+    'and','or','but','if','because','so','yet','while','although','though',
+    '이','가','은','는','을','를','에','의','로','으로','와','과','도','만','에서','으로서'];
+  
+  const words = text.toLowerCase()
+    .replace(/[^a-zA-Z가-힣\s]/g, ' ')
+    .split(/\s+/)
+    .filter(w => w.length > 2 && !stopWords.includes(w));
+  
+  // 빈도수 기반 상위 3개 키워드 추출
+  const freq = {};
+  words.forEach(w => freq[w] = (freq[w] || 0) + 1);
+  const keywords = Object.entries(freq)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([w]) => w);
+  
+  return keywords.length > 0 ? keywords : [text.split(' ').slice(0, 2).join(' ')];
 }
 
 async function searchImages() {
+  if (UNSPLASH_KEY === 'VLRkU7wWplDXzMjkBFFqvhVrR_orC10qFcHOApNkrTc') {
+    alert('⚠️ index.html 파일에서 UNSPLASH_KEY를 실제 키로 교체해주세요!');
+    return;
+  }
+
   const text = document.getElementById('articleText').value.trim();
   if (!text) { setStatus('기사 내용을 입력해주세요.'); return; }
 
@@ -116,7 +152,7 @@ async function searchImages() {
   btn.textContent = '분석 중...';
   document.getElementById('results').innerHTML = '';
   document.getElementById('keywords').innerHTML = '';
-  setStatus('AI가 핵심 키워드 추출 중...', true);
+  setStatus('핵심 키워드 추출 중...', true);
 
   let keywords;
   try {
@@ -139,20 +175,28 @@ async function searchImages() {
 
   let all = [];
   try {
-    const res = await fetch('/.netlify/functions/search', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ keywords, count, orientation })
-    });
-    const data = await res.json();
-    all = data.images || [];
-  } catch(e) { console.error(e); }
+    const perKw = Math.ceil(count / keywords.length);
+    for (const kw of keywords) {
+      const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(kw)}&per_page=${perKw}&orientation=${orientation}`;
+      const res = await fetch(url, {
+        headers: { Authorization: `Client-ID ${UNSPLASH_KEY}` }
+      });
+      const data = await res.json();
+      (data.results || []).forEach(img => all.push(img));
+    }
+  } catch(e) {
+    console.error(e);
+    setStatus('오류가 발생했습니다. API 키를 확인해주세요.');
+    btn.disabled = false; btn.textContent = '검색';
+    return;
+  }
 
+  all = all.slice(0, count);
   const grid = document.getElementById('results');
   grid.innerHTML = '';
 
   if (all.length === 0) {
-    grid.innerHTML = '<div class="empty-state"><div class="icon">🔍</div><p>이미지를 찾지 못했어요. 잠시 후 다시 시도해주세요.</p></div>';
+    grid.innerHTML = '<div class="empty-state"><div class="icon">🔍</div><p>이미지를 찾지 못했어요. 다른 키워드로 시도해보세요.</p></div>';
     setStatus('');
     btn.disabled = false; btn.textContent = '검색';
     return;
